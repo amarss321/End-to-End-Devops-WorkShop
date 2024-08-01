@@ -1,0 +1,8 @@
+Terraform/.terraform.lock.hcl
+Terraform/.terraform/
+Terraform/terraform.tfstate
+Terraform/terraform.tfstate.backup
+addressbook.iml
+target
+.git
+Terraform/*
