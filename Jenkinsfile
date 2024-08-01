@@ -9,7 +9,7 @@ pipeline{
         maven 'Maven'
     }
     environment {
-        IMAGE_NAME = "addressbook"
+        IMAGE_NAME = "590184028154.dkr.ecr.us-east-1.amazonaws.com/addressbook"
         IMAGE_VERSION = "$BUILD_NUMBER"
     }
 
