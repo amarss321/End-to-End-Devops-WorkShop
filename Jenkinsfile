@@ -8,7 +8,7 @@ pipeline{
     tools {
         maven 'Maven'
     }
-    
+
     stages{
         stage("Checkout SCM"){
             steps{
@@ -17,10 +17,12 @@ pipeline{
             
         }
         stage('SonarQube Analysis') {
-        script{
-            def mvn = tool 'Maven';
-            withSonarQubeEnv(installationName: 'sonar-server') {
-                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=end-to-end-devops-project"
+            steps{
+                script{
+                    def mvn = tool 'Maven';
+                    withSonarQubeEnv(installationName: 'sonar-server') {
+                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=end-to-end-devops-project"
+                    }
                 }
             }
         }
