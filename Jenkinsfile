@@ -9,6 +9,7 @@ pipeline{
         maven 'Maven'
     }
     environment {
+        cred = credentials('aws-cred')
         IMAGE_NAME = "590184028154.dkr.ecr.us-east-1.amazonaws.com/addressbook"
         IMAGE_VERSION = "$BUILD_NUMBER"
     }
@@ -58,6 +59,16 @@ pipeline{
             steps{
                 sh 'docker build -t ${IMAGE_NAME}:v.1.${IMAGE_VERSION} .'
                 sh 'docker images'
+            }
+        }
+        stage('Push Docker Image to AWS ECR'){
+            steps{
+                sh '''
+                    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 590184028154.dkr.ecr.us-east-1.amazonaws.com                   
+                    docker tag ${IMAGE_NAME}:v.1.${IMAGE_VERSION} ${IMAGE_NAME}:latest
+                    docker push ${IMAGE_NAME}:latest
+                    docker images
+                '''
             }
         }
     }
