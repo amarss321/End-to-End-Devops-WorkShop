@@ -8,6 +8,10 @@ pipeline{
     tools {
         maven 'Maven'
     }
+    environment {
+        IMAGE_NAME = "addressbook"
+        IMAGE_VERSION = "$BUILD_NUMBER"
+    }
 
     stages{
         stage("Checkout SCM"){
@@ -48,6 +52,12 @@ pipeline{
                         type: 'war']
                      ]
                 )
+            }
+        }
+        stage('Docker Image Build'){
+            steps{
+                sh 'docker build -t ${IMAGE_NAME}:v.1.${IMAGE_VERSION} .'
+                sh 'docker images'
             }
         }
     }
