@@ -31,6 +31,25 @@ pipeline{
                 sh 'mvn package'
             }
         }
+        stage('Nexus Push'){
+            steps{
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: '54.210.36.4',
+                    groupId: 'addressbook',
+                    version: '2.0-SNAPSHOT',
+                    repository: 'maven-snapshots',
+                    credentialsId: 'nexus-cred',
+                    artifacts: [
+                        [artifactId: 'DEV',
+                        classifier: '',
+                        file: 'target/addressbook-2.0.war',
+                        type: 'war']
+                     ]
+                )
+            }
+        }
     }
 }
     
