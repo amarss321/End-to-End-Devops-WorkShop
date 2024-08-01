@@ -3,8 +3,12 @@ pipeline{
         label 'dev-slave'
     }
     options {
-        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')
+        buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '30', numToKeepStr: '2')
     }
+    tools {
+        maven 'Maven'
+    }
+    
     stages{
         stage("Checkout SCM"){
             steps{
@@ -12,5 +16,14 @@ pipeline{
             }
             
         }
+        stage('SonarQube Analysis') {
+        script{
+            def mvn = tool 'Maven';
+            withSonarQubeEnv(installationName: 'sonar-server') {
+                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=end-to-end-devops-project"
+                }
+            }
+        }
     }
 }
+    
