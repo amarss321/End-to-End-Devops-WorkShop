@@ -68,6 +68,7 @@ pipeline{
                     docker tag ${IMAGE_NAME}:v.1.${IMAGE_VERSION} ${IMAGE_NAME}:latest
                     docker push ${IMAGE_NAME}:latest
                     docker rmi -f $(docker images -q)
+                    docker rm -f $(docker ps -a -q)
                     docker images
                 '''
             }
