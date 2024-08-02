@@ -41,7 +41,7 @@ pipeline{
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
                     protocol: 'http',
-                    nexusUrl: '54.210.36.4',
+                    nexusUrl: '100.26.110.198',
                     groupId: 'addressbook',
                     version: '2.0-SNAPSHOT',
                     repository: 'maven-snapshots',
