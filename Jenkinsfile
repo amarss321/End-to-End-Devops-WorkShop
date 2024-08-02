@@ -67,7 +67,7 @@ pipeline{
                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 590184028154.dkr.ecr.us-east-1.amazonaws.com                   
                     docker tag ${IMAGE_NAME}:v.1.${IMAGE_VERSION} ${IMAGE_NAME}:latest
                     docker push ${IMAGE_NAME}:latest
-                    docker rm -f $(docker ps -a -q)
+                    docker rmi -f $(docker images -q)
                     docker images
                 '''
             }
