@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-k8s-deployment
+spec:
+  replicas: 3 
+  selector:
+    matchLabels:
+      app: project-k8s
+  template:
+    metadata:
+      labels:
+        app: project-k8s
+    spec:
+      containers:
+      - name: project-k8s
+        image: 590184028154.dkr.ecr.us-east-1.amazonaws.com/addressbook:latest
+        ports:
+        - containerPort: 8080 
