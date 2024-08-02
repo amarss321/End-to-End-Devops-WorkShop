@@ -78,9 +78,9 @@ pipeline{
                     input id: 'Deploy', message: 'All steps completed Now ready to deploy In EKS Cluster', submitter: 'admin'
                 }
                 sh 'eksctl get clusters'
-                sh 'sudo kubectl version --client'
-                sh 'sudo kubectl apply -f k8s'
-                sh 'sudo kubectl get all -o wide'
+                sh 'kubectl version --client'
+                sh 'kubectl apply -f k8s'
+                sh 'kubectl get all -o wide'
             }
         }
     }
