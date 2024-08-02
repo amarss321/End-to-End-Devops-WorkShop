@@ -77,6 +77,7 @@ pipeline{
                 script{
                     input id: 'Deploy', message: 'All steps completed Now ready to deploy In EKS Cluster', submitter: 'admin'
                 }
+                sh 'eksctl get clusters'
                 sh 'kubectl version --client'
                 sh 'kubectl apply -f k8s'
                 sh 'kubectl get all -o wide'
